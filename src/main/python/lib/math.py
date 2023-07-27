@@ -7,8 +7,8 @@ from tqdm import tqdm
 import matplotlib
 import matplotlib.ticker
 import sklearn.neighbors
-import lib.utils
-from widgets.misc import ProgressBar
+import src.main.python.lib.utils
+from src.main.python.widgets.misc import ProgressBar
 from typing import Optional, Union, Tuple, List
 import scipy.signal
 import scipy.signal
@@ -22,7 +22,7 @@ import pandas as pd
 import numpy as np
 import pomegranate as pg
 from retrying import retry, RetryError
-from lib.utils import global_function
+from src.main.python.lib.utils import global_function
 
 pd.options.mode.chained_assignment = None
 
@@ -1050,7 +1050,7 @@ def generate_traces(
             else:
                 bleach_A = None
 
-            first_bleach = lib.utils.min_none((bleach_D, bleach_A))
+            first_bleach = src.main.python.lib.utils.min_none((bleach_D, bleach_A))
 
             # To keep track of multiple fluorophores for aggregates
             first_bleach_all.append(first_bleach)
@@ -1129,7 +1129,7 @@ def generate_traces(
             bleach_AA_all = np.argmax(AA == 0)
 
             # Find first bleaching overall
-            first_bleach_all = lib.utils.min_none(
+            first_bleach_all = src.main.python.lib.utils.min_none(
                 (bleach_DD_all, bleach_DA_all, bleach_AA_all)
             )
             if first_bleach_all == 0:
@@ -1137,7 +1137,7 @@ def generate_traces(
             label.fill(classifications["aggregate"])
         else:
             # Else simply check whether DD or DA bleaches first from lifetimes
-            first_bleach_all = lib.utils.min_none(first_bleach_all)
+            first_bleach_all = src.main.python.lib.utils.min_none(first_bleach_all)
 
         # Save unblinked fluorophores to calculate E_true
         DD_no_blink, DA_no_blink = DD.copy(), DA.copy()

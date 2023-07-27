@@ -6,19 +6,19 @@ import warnings
 import PIL.Image
 import PIL.TiffTags
 
-from lib.utils import timeit
+from src.main.python.lib.utils import timeit
 
 multiprocessing.freeze_support()
 
-from global_variables import GlobalVariables as gvars
+from src.main.python.global_variables import GlobalVariables as gvars
 from matplotlib.colors import LinearSegmentedColormap
 from typing import Union, Tuple, Optional
 import numpy as np
 import pandas as pd
 import skimage.io
-import lib.imgdata
-import lib.math
-import lib.utils
+import src.main.python.lib.imgdata
+import src.main.python.lib.math
+import src.main.python.lib.utils
 import astropy.io.fits
 
 
@@ -282,11 +282,11 @@ class TraceContainer:
                     df.columns = colnames
         # Else DeepFRET trace compatibility
         else:
-            df = lib.utils.csv_skip_to(
+            df = src.main.python.lib.utils.csv_skip_to(
                 path=self.filename, line="D-Dexc", sep="\s+"
             )
         try:
-            pair_n = lib.utils.seek_line(
+            pair_n = src.main.python.lib.utils.seek_line(
                 path=self.filename, line_starts="FRET pair"
             )
             self.n = int(pair_n.split("#")[-1])
@@ -294,14 +294,14 @@ class TraceContainer:
             pass
 
         try:
-            video = lib.utils.seek_line(
+            video = src.main.python.lib.utils.seek_line(
                 path=self.filename, line_starts="Video filename"
             )
             self.video = video.split(": ")[-1]
         except (ValueError, AttributeError):
             pass
         try:
-            bleach = lib.utils.seek_line(
+            bleach = src.main.python.lib.utils.seek_line(
                 path=self.filename, line_starts="Bleaches"
             )
             bleach_str = bleach.split(" ")[-1]
@@ -344,7 +344,7 @@ class TraceContainer:
                         self.y_class,
                         self.confidence,
                         _,
-                    ) = lib.math.seq_probabilities(self.y_pred)
+                    ) = src.main.python.lib.math.seq_probabilities(self.y_pred)
                 except KeyError:
                     pass
 
@@ -523,7 +523,7 @@ class TraceContainer:
         """
         if self.tracename is None:  # define the tracename if it doesn't exist
             self.tracename = os.path.basename(
-                lib.utils.remove_newlines(self.filename)
+                src.main.python.lib.utils.remove_newlines(self.filename)
             )
         return self.tracename
 
@@ -562,14 +562,14 @@ class TraceContainer:
         """
         Calculates fret value for current trace
         """
-        self.fret = lib.math.calc_E(self.get_intensities())
+        self.fret = src.main.python.lib.math.calc_E(self.get_intensities())
 
     def calculate_stoi(self):
         """
         calculates stoichiometry values for current trace.
         :return:
         """
-        self.stoi = lib.math.calc_S(self.get_intensities())
+        self.stoi = src.main.python.lib.math.calc_S(self.get_intensities())
 
     def calculate_transitions(self):
         """
@@ -752,7 +752,7 @@ class DataContainer:
         else:
             # Remove upper/lower half of quad
             if view_setup == gvars.key_viewSetupQuad:
-                top, btm, lft, rgt = lib.imgdata.quadrant_indices(
+                top, btm, lft, rgt = src.main.python.lib.imgdata.quadrant_indices(
                     height=video.height, width=video.width
                 )
                 # Figure out whether intensity is in top or bottom row, and
@@ -768,7 +768,7 @@ class DataContainer:
                 )
 
             # Do this for either dual/quad after preprocessing
-            lft, rgt = lib.imgdata.left_right_indices(width=video.width)
+            lft, rgt = src.main.python.lib.imgdata.left_right_indices(width=video.width)
 
             # Swap left/right
             if not donor_is_left:
@@ -802,9 +802,9 @@ class DataContainer:
                 crop_w = int(w // 50)
                 c.raw = c.raw[:, crop_h : h - crop_h, crop_w : w - crop_w]
                 c.mean = c.raw[0 : t // 20, :, :].mean(axis=0)
-                c.mean = lib.imgdata.zero_one_scale(c.mean)
+                c.mean = src.main.python.lib.imgdata.zero_one_scale(c.mean)
                 if bg_correction:
-                    c.mean_nobg = lib.imgdata.subtract_background(
+                    c.mean_nobg = src.main.python.lib.imgdata.subtract_background(
                         c.mean, by="row", return_bg_only=False
                     )
                 else:

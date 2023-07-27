@@ -109,6 +109,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     CorrectionFactorInspector = QtWidgets.QDialog()
     ui = Ui_CorrectionFactorInspector()
-    ui.setupUi(CorrectionFactorInspector)
+    src.main.python.ui.setupUi(CorrectionFactorInspector)
     CorrectionFactorInspector.show()
     sys.exit(app.exec_())

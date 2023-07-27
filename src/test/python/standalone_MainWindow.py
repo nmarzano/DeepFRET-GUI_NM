@@ -1,6 +1,6 @@
 import sys
 from main import AppContext, gvars
-from widgets.video_window import VideoWindow
+from src.main.python.widgets.video_window import VideoWindow
 
 
 class SetUp(VideoWindow):

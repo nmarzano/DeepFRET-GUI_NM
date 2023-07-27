@@ -1,6 +1,6 @@
 import sys
 from main import AppContext
-from widgets.base_window import PreferencesWindow
+from src.main.python.widgets.base_window import PreferencesWindow
 
 if __name__ == "__main__":
     ctxt = AppContext()

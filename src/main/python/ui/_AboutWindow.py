@@ -92,6 +92,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     About = QtWidgets.QWidget()
     ui = Ui_About()
-    ui.setupUi(About)
+    src.main.python.ui.setupUi(About)
     About.show()
     sys.exit(app.exec_())

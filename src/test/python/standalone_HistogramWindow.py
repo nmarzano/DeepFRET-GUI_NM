@@ -1,7 +1,7 @@
 import sys
 from main import AppContext
-from widgets.inspectors import DensityWindowInspector
-from widgets.histogram_window import HistogramWindow
+from src.main.python.widgets.inspectors import DensityWindowInspector
+from src.main.python.widgets.histogram_window import HistogramWindow
 import pandas as pd
 import numpy as np
 

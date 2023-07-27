@@ -240,7 +240,7 @@ def count_adjacent_values(arr):
 
     Example for plotting several axvspans:
     --------------------------------------
-    adjs, lns = lib.count_adjacent_true(score)
+    adjs, lns = src.main.python.lib.count_adjacent_true(score)
     t = np.arange(1, len(score) + 1)
 
     for ax in axes:

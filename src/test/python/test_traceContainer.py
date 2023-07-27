@@ -2,7 +2,7 @@ import os
 from unittest import TestCase
 import numpy as np
 
-from lib.container import TraceContainer
+from src.main.python.lib.container import TraceContainer
 
 
 class TestTraceContainer(TestCase):

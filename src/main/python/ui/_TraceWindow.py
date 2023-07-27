@@ -56,6 +56,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     TraceWindow = QtWidgets.QMainWindow()
     ui = Ui_TraceWindow()
-    ui.setupUi(TraceWindow)
+    src.main.python.ui.setupUi(TraceWindow)
     TraceWindow.show()
     sys.exit(app.exec_())

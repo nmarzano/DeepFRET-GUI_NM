@@ -96,6 +96,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     TransitionDensityWindow = QtWidgets.QMainWindow()
     ui = Ui_TransitionDensityWindow()
-    ui.setupUi(TransitionDensityWindow)
+    src.main.python.ui.setupUi(TransitionDensityWindow)
     TransitionDensityWindow.show()
     sys.exit(app.exec_())

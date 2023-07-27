@@ -10,13 +10,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from global_variables import GlobalVariables as gvars
-from lib.container import DataContainer, TraceContainer
-from mpl_layout import PlotWidget
-from ui._AboutWindow import Ui_About
-from ui._MenuBar import Ui_MenuBar
-from ui._PreferencesWindow import Ui_Preferences
-from widgets.misc import ExportDialog, ListView
+from src.main.python.global_variables import GlobalVariables as gvars
+from src.main.python.lib.container import DataContainer, TraceContainer
+from src.main.python.mpl_layout import PlotWidget
+from src.main.python.ui._AboutWindow import Ui_About
+from src.main.python.ui._MenuBar import Ui_MenuBar
+from src.main.python.ui._PreferencesWindow import Ui_Preferences
+from src.main.python.widgets.misc import ExportDialog, ListView
 
 
 class BaseWindow(QMainWindow):
@@ -655,7 +655,7 @@ class BaseWindow(QMainWindow):
     def exportTracesToAscii(self, checked_only=False):
         """
         Exports all traces as ASCII files to selected directory.
-        Maintains compatibility with iSMS and older pySMS scripts.
+       src.maintains compatibility with iSMS and older pySMS scripts.
         """
         traces = self.data.traces
 

@@ -3,17 +3,17 @@ import multiprocessing
 
 from PyQt5.QtCore import qWarning
 
-from widgets.base_window import AboutWindow, BaseWindow, PreferencesWindow
-from widgets.histogram_window import HistogramWindow
-from widgets.inspectors import (
+from src.main.python.widgets.base_window import AboutWindow, BaseWindow, PreferencesWindow
+from src.main.python.widgets.histogram_window import HistogramWindow
+from src.main.python.widgets.inspectors import (
     AdvancedSortInspector,
     CorrectionFactorInspector,
     DensityWindowInspector,
 )
-from widgets.simulator_window import SimulatorWindow
-from widgets.trace_window import TraceWindow
-from widgets.transition_density_window import TransitionDensityWindow
-from widgets.video_window import VideoWindow
+from src.main.python.widgets.simulator_window import SimulatorWindow
+from src.main.python.widgets.trace_window import TraceWindow
+from src.main.python.widgets.transition_density_window import TransitionDensityWindow
+from src.main.python.widgets.video_window import VideoWindow
 
 multiprocessing.freeze_support()
 
@@ -23,11 +23,11 @@ import matplotlib
 from PyQt5.QtCore import *
 from configobj import ConfigObj
 
-from global_variables import GlobalVariables as gvars
+from src.main.python.global_variables import GlobalVariables as gvars
 
 matplotlib.use("qt5agg")
 import pandas as pd
-from tensorflow_core.python.keras.models import load_model, Model
+# from tensorflow_core.python.keras.models import load_model, Model
 
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 

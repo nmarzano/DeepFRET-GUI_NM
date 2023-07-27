@@ -2,7 +2,7 @@ import multiprocessing
 
 multiprocessing.freeze_support()
 
-from global_variables import GlobalVariables as gvars
+from src.main.python.global_variables import GlobalVariables as gvars
 import matplotlib
 
 matplotlib.use("qt5agg")
@@ -12,9 +12,9 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Patch
 import sklearn.neighbors
-import lib.utils
+import src.main.python.lib.utils
 from matplotlib.colors import Normalize
-import lib.math
+import src.main.python.lib.math
 import scipy.stats
 
 
@@ -170,7 +170,7 @@ def point_density(xdata, ydata, kernel="gaussian", bandwidth=0.1):
         kernel = "epanechnikov"
 
     if bandwidth == "auto":
-        bandwidth = lib.math.estimate_bw(
+        bandwidth = src.main.python.lib.math.estimate_bw(
             n=len(xdata) + len(ydata), d=2, factor=0.25
         )
 
@@ -200,7 +200,7 @@ def plot_shaded_category(y, ax, alpha, colors):
     if len(colors) < len(set(y_)):
         raise ValueError("Must have at least a color for each class")
 
-    adjs, lns = lib.utils.count_adjacent_values(y_)
+    adjs, lns = src.main.python.lib.utils.count_adjacent_values(y_)
     position = range(len(y_))
     for idx, ln in zip(adjs, lns):
         label = y_[idx]
@@ -239,7 +239,7 @@ def plot_simulation_category(
     if len(colors) < len(set(y_)):
         raise ValueError("Must have at least a color for each class")
 
-    adjs, lns = lib.utils.count_adjacent_values(y_)
+    adjs, lns = src.main.python.lib.utils.count_adjacent_values(y_)
     position = range(len(y_))
     for idx, ln in zip(adjs, lns):
         label = y_[idx]

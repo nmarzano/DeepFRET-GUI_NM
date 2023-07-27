@@ -9,16 +9,16 @@ from PyQt5.QtCore import QModelIndex, Qt, pyqtSlot
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtWidgets import QFileDialog
 
-import lib.math
-import lib.plotting
-from global_variables import GlobalVariables as gvars
-from lib.container import TraceContainer
-from ui._MenuBar import Ui_MenuBar
-from ui._TraceWindow import Ui_TraceWindow
-from widgets.misc import ProgressBar
-from widgets.base_window import BaseWindow
-from widgets.histogram_window import HistogramWindow
-from widgets.transition_density_window import TransitionDensityWindow
+import src.main.python.lib.math
+import src.main.python.lib.plotting
+from src.main.python.global_variables import GlobalVariables as gvars
+from src.main.python.lib.container import TraceContainer
+from src.main.python.ui._MenuBar import Ui_MenuBar
+from src.main.python.ui._TraceWindow import Ui_TraceWindow
+from src.main.python.widgets.misc import ProgressBar
+from src.main.python.widgets.base_window import BaseWindow
+from src.main.python.widgets.histogram_window import HistogramWindow
+from src.main.python.widgets.transition_density_window import TransitionDensityWindow
 
 
 class TraceWindow(BaseWindow):
@@ -240,7 +240,7 @@ class TraceWindow(BaseWindow):
         )
         lDD, lDA, lAA, lE, llengths = [], [], [], [], []
         for trace in traces:
-            _, I_DD, I_DA, I_AA = lib.math.correct_DA(trace.get_intensities())
+            _, I_DD, I_DA, I_AA = src.main.python.lib.math.correct_DA(trace.get_intensities())
             lDD.append(I_DD[: trace.first_bleach])
             lDA.append(I_DA[: trace.first_bleach])
             lAA.append(I_AA[: trace.first_bleach])
@@ -255,7 +255,7 @@ class TraceWindow(BaseWindow):
                 _x = np.column_stack((lDD[ti], lDA[ti], lAA[ti], lE[ti]))
                 X.append(_x)
 
-            if lib.math.contains_nan([np.sum(aa) for aa in X[:][2]]):
+            if src.main.python.lib.math.contains_nan([np.sum(aa) for aa in X[:][2]]):
                 X = [np.concatenate((_x[:, :2], _x[:, 3:]), axis=1) for _x in X]
 
             X = np.array(X)
@@ -264,7 +264,7 @@ class TraceWindow(BaseWindow):
 
         E_flat = np.concatenate(E)
 
-        best_mixture_model, params = lib.math.fit_gaussian_mixture(
+        best_mixture_model, params = src.main.python.lib.math.fit_gaussian_mixture(
             E_flat,
             min_n_components=1,
             max_n_components=6,
@@ -272,7 +272,7 @@ class TraceWindow(BaseWindow):
             verbose=True,
         )
         n_components = best_mixture_model.n_components
-        self.hmmModel = lib.math.get_hmm_model(X, n_components=n_components)
+        self.hmmModel = src.main.python.lib.math.get_hmm_model(X, n_components=n_components)
 
         log_transmat = self.hmmModel.dense_transition_matrix()
         n_states = (
@@ -341,7 +341,7 @@ class TraceWindow(BaseWindow):
             trace.y_class,
             trace.confidence,
             trace.first_bleach,
-        ) = lib.math.seq_probabilities(trace.y_pred)
+        ) = src.main.python.lib.math.seq_probabilities(trace.y_pred)
 
         for c in trace.channels:
             c.bleach = trace.first_bleach
@@ -374,10 +374,10 @@ class TraceWindow(BaseWindow):
             progressbar = ProgressBar(loop_len=batches, parent=self)
 
             if not single:
-                all_lengths_eq = lib.math.all_equal(
+                all_lengths_eq = src.main.python.lib.math.all_equal(
                     [trace.frames_max for trace in traces]
                 )
-                all_features_eq = lib.math.all_equal(
+                all_features_eq = src.main.python.lib.math.all_equal(
                     [lib.math.contains_nan(trace.red.int) for trace in traces]
                 )
             else:
@@ -388,7 +388,7 @@ class TraceWindow(BaseWindow):
                 # shape is (n_traces) if traces have uneven length
                 X = np.array(
                     [
-                        lib.math.correct_DA(
+                        src.main.python.lib.math.correct_DA(
                             trace.get_intensities(), alpha=alpha, delta=delta
                         )
                         for trace in traces
@@ -401,11 +401,11 @@ class TraceWindow(BaseWindow):
 
                 X = (
                     X[..., [1, 2]]
-                    if lib.math.contains_nan(X[..., -1])
+                    if src.main.python.lib.math.contains_nan(X[..., -1])
                     else X[..., [1, 2, 3]]
                 )
                 # Normalize tensor
-                X = lib.math.sample_max_normalize_3d(X)
+                X = src.main.python.lib.math.sample_max_normalize_3d(X)
 
                 # Fix single sample dimension
                 if len(X.shape) == 2:
@@ -417,7 +417,7 @@ class TraceWindow(BaseWindow):
                     else self.keras_three_channel_model
                 )
 
-                Y = lib.math.predict_batch(
+                Y = src.main.python.lib.math.predict_batch(
                     X=X,
                     model=model,
                     progressbar=progressbar,
@@ -427,20 +427,20 @@ class TraceWindow(BaseWindow):
                 Y = []
                 for n, trace in enumerate(traces):
                     xi = np.column_stack(
-                        lib.math.correct_DA(
+                        src.main.python.lib.math.correct_DA(
                             trace.get_intensities(), alpha=alpha, delta=delta
                         )
                     )
-                    if lib.math.contains_nan(xi[..., -1]):
+                    if src.main.python.lib.math.contains_nan(xi[..., -1]):
                         model = self.keras_two_channel_model
                         xi = xi[..., [1, 2]]
                     else:
                         model = self.keras_three_channel_model
                         xi = xi[..., [1, 2, 3]]
 
-                    xi = lib.math.sample_max_normalize_3d(X=xi)
+                    xi = src.main.python.lib.math.sample_max_normalize_3d(X=xi)
 
-                    yi = lib.math.predict_single(xi=xi, model=model)
+                    yi = src.main.python.lib.math.predict_single(xi=xi, model=model)
                     Y.append(yi)
                     if n % batch_size == 0:
                         progressbar.increment()
@@ -491,7 +491,7 @@ class TraceWindow(BaseWindow):
                     elif color == "red":
                         self.currentTrace().red.bleach = clickedx
                         self.currentTrace().acc.bleach = clickedx
-                    self.currentTrace().first_bleach = lib.math.min_real(
+                    self.currentTrace().first_bleach = src.main.python.lib.math.min_real(
                         self.currentTrace().get_bleaches()
                     )
                     self.currentTrace().hmm = None
@@ -576,7 +576,7 @@ class TraceWindow(BaseWindow):
                 E = trace.fret[: trace.first_bleach]
 
                 # TODO: write a warning that stoichiometry will be ignored?
-                if lib.math.contains_nan(trace.red.int):
+                if src.main.python.lib.math.contains_nan(trace.red.int):
                     cond1 = True
                 else:
                     cond1 = S_med_lo < np.median(S) < S_med_hi
@@ -697,9 +697,9 @@ class TraceWindow(BaseWindow):
             I_AA = trace.red.int[xmin:xmax]
 
             if factor == "alpha":
-                trace.a_factor = lib.math.alpha_factor(I_DD, I_DA)
+                trace.a_factor = src.main.python.lib.math.alpha_factor(I_DD, I_DA)
             elif factor == "delta":
-                trace.d_factor = lib.math.delta_factor(I_DD, I_DA, I_AA)
+                trace.d_factor = src.main.python.lib.math.delta_factor(I_DD, I_DA, I_AA)
             self.refreshPlot()
 
     def clearCorrectionFactors(self):
@@ -738,7 +738,7 @@ class TraceWindow(BaseWindow):
             alpha = self.getConfig(gvars.key_alphaFactor)
             delta = self.getConfig(gvars.key_deltaFactor)
             factors = alpha, delta
-            F_DA, I_DD, I_DA, I_AA = lib.math.correct_DA(
+            F_DA, I_DD, I_DA, I_AA = src.main.python.lib.math.correct_DA(
                 trace.get_intensities(), *factors
             )
             zeros = np.zeros(len(F_DA))
@@ -812,8 +812,8 @@ class TraceWindow(BaseWindow):
                     ax.set_ylim(0, 1.1)
                 ax.yaxis.label.set_color(gvars.color_gui_text)
 
-                if not lib.math.contains_nan(signal):
-                    lib.plotting.set_axis_exp_ylabel(
+                if not src.main.python.lib.math.contains_nan(signal):
+                    src.main.python.lib.plotting.set_axis_exp_ylabel(
                         ax=ax, label=label, values=signal
                     )
                 else:
@@ -821,8 +821,8 @@ class TraceWindow(BaseWindow):
                     ax.set_yticks(())
 
             # Continue drawing FRET specifics
-            fret = lib.math.calc_E(trace.get_intensities(), *factors)
-            stoi = lib.math.calc_S(trace.get_intensities(), *factors)
+            fret = src.main.python.lib.math.calc_E(trace.get_intensities(), *factors)
+            stoi = src.main.python.lib.math.calc_S(trace.get_intensities(), *factors)
 
             for signal, ax, color, label in zip(
                 (fret, stoi),
@@ -889,7 +889,7 @@ class TraceWindow(BaseWindow):
                         )
 
             if hasattr(self.canvas, "ax_ml") and trace.y_pred is not None:
-                lib.plotting.plot_predictions(
+                src.main.python.lib.plotting.plot_predictions(
                     yi_pred=trace.y_pred,
                     confidence=trace.confidence,
                     y_class=trace.y_class,

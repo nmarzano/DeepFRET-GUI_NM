@@ -553,6 +553,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     MenuBar = QtWidgets.QMainWindow()
     ui = Ui_MenuBar()
-    ui.setupUi(MenuBar)
+    src.main.python.ui.setupUi(MenuBar)
     MenuBar.show()
     sys.exit(app.exec_())

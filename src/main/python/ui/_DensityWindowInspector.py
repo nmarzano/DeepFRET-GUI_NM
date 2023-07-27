@@ -126,6 +126,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     DensityWindowInspector = QtWidgets.QDialog()
     ui = Ui_DensityWindowInspector()
-    ui.setupUi(DensityWindowInspector)
+    src.main.python.ui.setupUi(DensityWindowInspector)
     DensityWindowInspector.show()
     sys.exit(app.exec_())

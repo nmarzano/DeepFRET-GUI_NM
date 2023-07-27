@@ -6,12 +6,12 @@ import scipy.optimize
 import sklearn.cluster
 from matplotlib import pyplot as plt
 
-import lib.math
-import lib.plotting
-from global_variables import GlobalVariables as gvars
-from ui._MenuBar import Ui_MenuBar
-from ui._TransitionDensityWindow import Ui_TransitionDensityWindow
-from widgets.base_window import BaseWindow
+import src.main.python.lib.math
+import src.main.python.lib.plotting
+from src.main.python.global_variables import GlobalVariables as gvars
+from src.main.python.ui._MenuBar import Ui_MenuBar
+from src.main.python.ui._TransitionDensityWindow import Ui_TransitionDensityWindow
+from src.main.python.widgets.base_window import BaseWindow
 
 
 class TransitionDensityWindow(BaseWindow):
@@ -213,7 +213,7 @@ class TransitionDensityWindow(BaseWindow):
             self.data.tdpData.state_before is not None
             and len(self.data.tdpData.state_before) > 0
         ):
-            cont = lib.math.contour_2d(
+            cont = src.main.python.lib.math.contour_2d(
                 xdata=self.data.tdpData.state_before,
                 ydata=self.data.tdpData.state_after,
                 bandwidth=bandwidth / 200,
@@ -234,7 +234,7 @@ class TransitionDensityWindow(BaseWindow):
             )
 
             tdp_df_grp = self.data.tdpData.df.groupby("label")
-            self.colors = lib.plotting.get_colors(
+            self.colors = src.main.python.lib.plotting.get_colors(
                 "viridis", tdp_df_grp.ngroups * 2
             )
 
@@ -271,19 +271,19 @@ class TransitionDensityWindow(BaseWindow):
         if self.data.tdpData.df is not None:
             fret_lifetimes = self.data.tdpData.df["lifetime"]
             max_lifetime = np.max(fret_lifetimes)
-            bw = lib.math.estimate_binwidth(fret_lifetimes)
+            bw = src.main.python.lib.math.estimate_binwidth(fret_lifetimes)
             bins = np.arange(0, max_lifetime, bw)
 
             for k, cluster in self.data.tdpData.df.groupby("label"):
                 try:
-                    hx, hy, *_ = lib.math.histpoints_w_err(
+                    hx, hy, *_ = src.main.python.lib.math.histpoints_w_err(
                         data=cluster["lifetime"],
                         bins=bins,
                         density=False,
                         least_count=1,
                     )
                     popt, pcov = scipy.optimize.curve_fit(
-                        lib.math.exp_function, xdata=hx, ydata=hy
+                        src.main.python.lib.math.exp_function, xdata=hx, ydata=hy
                     )
                     perr = np.sqrt(np.diag(pcov))
 
@@ -295,7 +295,7 @@ class TransitionDensityWindow(BaseWindow):
 
                     self.hist_axes[k].plot(
                         bins,
-                        lib.math.exp_function(bins, *popt),
+                        src.main.python.lib.math.exp_function(bins, *popt),
                         "--",
                         color="black",
                         label="label: {}\n"

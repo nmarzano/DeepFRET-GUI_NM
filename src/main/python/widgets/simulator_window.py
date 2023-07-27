@@ -7,14 +7,14 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-import lib.math
-import lib.utils
-import lib.plotting
-from global_variables import GlobalVariables as gvars
-from lib.container import TraceContainer
-from ui._SimulatorWindow import Ui_SimulatorWindow
-from widgets.misc import ExportDialog, ProgressBar
-from widgets.base_window import BaseWindow
+import src.main.python.lib.math
+import src.main.python.lib.utils
+import src.main.python.lib.plotting
+from src.main.python.global_variables import GlobalVariables as gvars
+from src.main.python.lib.container import TraceContainer
+from src.main.python.ui._SimulatorWindow import Ui_SimulatorWindow
+from src.main.python.widgets.misc import ExportDialog, ProgressBar
+from src.main.python.widgets.base_window import BaseWindow
 
 
 class SimulatorWindow(BaseWindow):
@@ -71,7 +71,7 @@ class SimulatorWindow(BaseWindow):
     def exportTracesToAscii(self, checked_only=False):
         """
         Exports all traces as ASCII files to selected directory.
-        Maintains compatibility with iSMS and older pySMS scripts.
+       src.maintains compatibility with iSMS and older pySMS scripts.
         """
         traces = (
             self.data.simulated_traces
@@ -164,7 +164,7 @@ class SimulatorWindow(BaseWindow):
                 old_fret_means = float(self.ui.inputFretStateMeans.text())
 
             new_fret_means = sorted(
-                lib.utils.numstring_to_ls(self.ui.inputFretStateMeans.text())
+                src.main.python.lib.utils.numstring_to_ls(self.ui.inputFretStateMeans.text())
             )
             if not new_fret_means:
                 self.fret_means = 0
@@ -272,7 +272,7 @@ class SimulatorWindow(BaseWindow):
         else:
             self.data.simulated_traces.clear()
 
-        df = lib.math.generate_traces(
+        df = src.main.python.lib.math.generate_traces(
             n_traces=n_traces,
             aa_mismatch=self.aa_mismatch,
             state_means=self.fret_means,
@@ -373,7 +373,7 @@ class SimulatorWindow(BaseWindow):
 
             ax_sto.plot(trace.stoi, color="purple")
 
-            lib.plotting.plot_simulation_category(
+            src.main.python.lib.plotting.plot_simulation_category(
                 y=trace.y_class,  # TODO: fix in init
                 ax=ax_lbl,
                 alpha=0.4,

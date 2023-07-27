@@ -1,0 +1,30 @@
+
+name: DEEP_FRET_dez
+channels:
+  - defaults
+  - conda-forge
+  - anaconda
+dependencies:
+
+  - astropy
+  - hmmlearn
+  - matplotlib
+  - numpy 
+  - pandas 
+  - pomegranate 
+  - scipy
+  - scikit-image
+  - scikit-learn
+  - appdirs
+  - configobj
+  - parmap
+  - PyInstaller
+  - pyqt
+  - retrying
+  - tqdm
+  - tensorflow==2.0.1
+  - pip:
+    - pillow
+
+
+

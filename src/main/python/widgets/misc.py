@@ -1,6 +1,6 @@
 import multiprocessing
 
-from widgets.inspectors import SheetInspector
+from src.main.python.widgets.inspectors import SheetInspector
 
 multiprocessing.freeze_support()
 

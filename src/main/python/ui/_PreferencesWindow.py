@@ -394,6 +394,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Preferences = QtWidgets.QWidget()
     ui = Ui_Preferences()
-    ui.setupUi(Preferences)
+    src.main.python.ui.setupUi(Preferences)
     Preferences.show()
     sys.exit(app.exec_())

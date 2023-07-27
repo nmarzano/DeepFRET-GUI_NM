@@ -1140,6 +1140,6 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     SimulatorWindow = QtWidgets.QMainWindow()
     ui = Ui_SimulatorWindow()
-    ui.setupUi(SimulatorWindow)
+    src.main.python.ui.setupUi(SimulatorWindow)
     SimulatorWindow.show()
     sys.exit(app.exec_())

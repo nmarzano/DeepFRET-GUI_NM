@@ -4,13 +4,13 @@ import numpy as np
 import pandas as pd
 from PyQt5.QtWidgets import QFileDialog
 
-import lib.math
-import lib.plotting
-import lib.utils
-from global_variables import GlobalVariables as gvars
-from ui._HistogramWindow import Ui_HistogramWindow
-from ui._MenuBar import Ui_MenuBar
-from widgets.base_window import BaseWindow
+import src.main.python.lib.math
+import src.main.python.lib.plotting
+import src.main.python.lib.utils
+from src.main.python.global_variables import GlobalVariables as gvars
+from src.main.python.ui._HistogramWindow import Ui_HistogramWindow
+from src.main.python.ui._MenuBar import Ui_MenuBar
+from src.main.python.widgets.base_window import BaseWindow
 
 
 class HistogramWindow(BaseWindow):
@@ -212,7 +212,7 @@ class HistogramWindow(BaseWindow):
 
         DA, DD, E_app, S_app, lengths, corrs = [], [], [], [], [], []
         for trace in checkedTraces:
-            E, S = lib.math.drop_bleached_frames(
+            E, S = src.main.python.lib.math.drop_bleached_frames(
                 intensities=trace.get_intensities(),
                 bleaches=trace.get_bleaches(),
                 alpha=alpha,
@@ -221,7 +221,7 @@ class HistogramWindow(BaseWindow):
             )
             E_app.extend(E)
             S_app.extend(S)
-            _, I_DD, I_DA, I_AA = lib.math.correct_DA(trace.get_intensities())
+            _, I_DD, I_DA, I_AA = src.main.python.lib.math.correct_DA(trace.get_intensities())
             trace.calculate_stoi()
             DD.append(I_DD[: trace.first_bleach])
             DA.append(I_DA[: trace.first_bleach])
@@ -230,17 +230,17 @@ class HistogramWindow(BaseWindow):
         self.DD = np.concatenate(DD).flatten()
         self.DA = np.concatenate(DA).flatten()
 
-        self.E_un, self.S_un = lib.math.trim_ES(E_app, S_app)
+        self.E_un, self.S_un = src.main.python.lib.math.trim_ES(E_app, S_app)
 
         # Skip ensemble correction if stoichiometry is missing
-        if not lib.math.contains_nan(self.S_un):
+        if not src.main.python.lib.math.contains_nan(self.S_un):
             if len(self.E_un) > 0:
-                beta, gamma = lib.math.beta_gamma_factor(
+                beta, gamma = src.main.python.lib.math.beta_gamma_factor(
                     E_app=self.E_un, S_app=self.S_un
                 )
                 E_real, S_real, = [], []
                 for trace in checkedTraces:
-                    E, S = lib.math.drop_bleached_frames(
+                    E, S = src.main.python.lib.math.drop_bleached_frames(
                         intensities=trace.get_intensities(),
                         bleaches=trace.get_bleaches(),
                         alpha=alpha,
@@ -251,7 +251,7 @@ class HistogramWindow(BaseWindow):
                     )
                     E_real.extend(E)
                     S_real.extend(S)
-                self.E, self.S = lib.math.trim_ES(E_real, S_real)
+                self.E, self.S = src.main.python.lib.math.trim_ES(E_real, S_real)
                 self.beta = beta
                 self.gamma = gamma
         else:
@@ -272,7 +272,7 @@ class HistogramWindow(BaseWindow):
                 (1, 6) if states == "auto" else self.ui.gaussianSpinBox.value()
             )
 
-            best_model, params = lib.math.fit_gaussian_mixture(
+            best_model, params = src.main.python.lib.math.fit_gaussian_mixture(
                 X=E,
                 min_n_components=np.min(n_components),
                 max_n_components=np.max(n_components),
@@ -326,7 +326,7 @@ class HistogramWindow(BaseWindow):
             joint_dist = []
             xpts = self.xpts
             for (m, s, w) in self.gauss_params:
-                _, y = lib.plotting.plot_gaussian(
+                _, y = src.main.python.lib.plotting.plot_gaussian(
                     mean=m, sigma=s, weight=w, x=xpts, ax=self.canvas.ax_top
                 )
                 joint_dist.append(y)
@@ -417,7 +417,7 @@ class HistogramWindow(BaseWindow):
             )
 
         if S is not None:
-            c = lib.math.contour_2d(
+            c = src.main.python.lib.math.contour_2d(
                 xdata=E,
                 ydata=S,
                 bandwidth=bandwidth / 200,

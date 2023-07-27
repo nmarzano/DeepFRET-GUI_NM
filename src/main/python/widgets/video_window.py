@@ -5,28 +5,28 @@ import numpy as np
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtWidgets import QDoubleSpinBox, QFileDialog
 
-import lib.imgdata
-import lib.math
-import lib.utils
-import lib.plotting
-from global_variables import GlobalVariables as gvars
-from lib.container import (
+import src.main.python.lib.imgdata
+import src.main.python.lib.math
+import src.main.python.lib.utils
+import src.main.python.lib.plotting
+from src.main.python.global_variables import GlobalVariables as gvars
+from src.main.python.lib.container import (
     ImageChannel,
     TraceChannel,
     TraceContainer,
     VideoContainer,
 )
-from lib.utils import timeit
-from ui._MainWindow import Ui_MainWindow
-from ui._MenuBar import Ui_MenuBar
-from widgets.misc import ProgressBar
-from widgets.base_window import BaseWindow
-from widgets.trace_window import TraceWindow
+from src.main.python.lib.utils import timeit
+from src.main.python.ui._MainWindow import Ui_MainWindow
+from src.main.python.ui._MenuBar import Ui_MenuBar
+from src.main.python.widgets.misc import ProgressBar
+from src.main.python.widgets.base_window import BaseWindow
+from src.main.python.widgets.trace_window import TraceWindow
 
 
 class VideoWindow(BaseWindow):
     """
-    Main UI for the application.
+   src.main UI for the application.
     """
 
     def __init__(self):
@@ -167,7 +167,7 @@ class VideoWindow(BaseWindow):
                         break
 
                     # Make sure name is unique
-                    uniqueName = lib.utils.generate_unique_name(
+                    uniqueName = src.main.python.lib.utils.generate_unique_name(
                         full_filename=full_filename,
                         array=self.data.videos.keys(),
                     )
@@ -321,17 +321,17 @@ class VideoWindow(BaseWindow):
             if find_npairs > 0:
                 # hardcoded value threshold until I come up with something
                 # better
-                spots = lib.imgdata.find_spots(
+                spots = src.main.python.lib.imgdata.find_spots(
                     channel.mean_nobg, value=20, method="laplacian_of_gaussian"
                 )
 
                 # Sort spots based on intensity
                 real_spots = []
                 for spot in spots:
-                    masks = lib.imgdata.circle_mask(
+                    masks = src.main.python.lib.imgdata.circle_mask(
                         yx=spot, indices=vid.indices, **gvars.cmask_p
                     )
-                    intensity, bg = lib.imgdata.tiff_stack_intensity(
+                    intensity, bg = src.main.python.lib.imgdata.tiff_stack_intensity(
                         channel.mean_nobg, *masks, raw=True
                     )
                     if intensity > bg * 1.05:
@@ -342,7 +342,7 @@ class VideoWindow(BaseWindow):
 
         else:
             if find_npairs > 0:
-                channel.spots = lib.imgdata.find_spots(
+                channel.spots = src.main.python.lib.imgdata.find_spots(
                     channel.mean_nobg,
                     value=find_npairs,
                     method="peak_local_max",
@@ -357,7 +357,7 @@ class VideoWindow(BaseWindow):
 
         for (c1, c2), coloc in zip(pairs, colocs):
             if all((c1.n_spots, c2.n_spots)) > 0:
-                coloc.spots = lib.imgdata.colocalize_rois(
+                coloc.spots = src.main.python.lib.imgdata.colocalize_rois(
                     c1.spots,
                     c2.spots,
                     color1=coloc.color1,
@@ -412,27 +412,27 @@ class VideoWindow(BaseWindow):
                 self.colocalizeSpotsSingleVideo(c)
         else:
             for n, *row in vid.coloc_grn_red.spots.itertuples():
-                yx_grn, yx_red = lib.utils.pairwise(row)
+                yx_grn, yx_red = src.main.python.lib.utils.pairwise(row)
 
                 trace = self.newTraceFromVideo(n)
 
                 # Green
                 if vid.grn.exists and yx_grn is not None:
-                    masks_grn = lib.imgdata.circle_mask(
+                    masks_grn = src.main.python.lib.imgdata.circle_mask(
                         yx=yx_grn, indices=vid.indices, **gvars.cmask_p
                     )
                     (
                         trace.grn.int,
                         trace.grn.bg,
-                    ) = lib.imgdata.tiff_stack_intensity(
+                    ) = src.main.python.lib.imgdata.tiff_stack_intensity(
                         vid.grn.raw, *masks_grn, raw=True
                     )
 
                 # Red
-                masks_red = lib.imgdata.circle_mask(
+                masks_red = src.main.python.lib.imgdata.circle_mask(
                     yx=yx_red, indices=vid.indices, **gvars.cmask_p
                 )
-                trace.red.int, trace.red.bg = lib.imgdata.tiff_stack_intensity(
+                trace.red.int, trace.red.bg = src.main.python.lib.imgdata.tiff_stack_intensity(
                     vid.red.raw, *masks_red, raw=True
                 )
 
@@ -442,14 +442,14 @@ class VideoWindow(BaseWindow):
                 (
                     trace.acc.int,
                     trace.acc.bg,
-                ) = lib.imgdata.tiff_stack_intensity(
+                ) = src.main.python.lib.imgdata.tiff_stack_intensity(
                     vid.acc.raw, *masks_red, raw=True
                 )
 
                 # Acceptor (if FRET)
                 if vid.alex:
-                    trace.fret = lib.math.calc_E(trace.get_intensities())
-                    trace.stoi = lib.math.calc_S(trace.get_intensities())
+                    trace.fret = src.main.python.lib.math.calc_E(trace.get_intensities())
+                    trace.stoi = src.main.python.lib.math.calc_S(trace.get_intensities())
                 else:
                     # If not ALEX, discard previous vid.red data
                     nanvals = np.zeros(trace.frames_max) * np.nan
@@ -540,7 +540,7 @@ class VideoWindow(BaseWindow):
             ):  # type: ImageChannel, QDoubleSpinBox, QDoubleSpinBox
                 clip_lo = float(lo.value() / sensitivity)
                 clip_hi = float(hi.value() / sensitivity)
-                c.rgba = lib.imgdata.rescale_intensity(
+                c.rgba = src.main.python.lib.imgdata.rescale_intensity(
                     c.mean, range=(clip_lo, clip_hi)
                 )
 
@@ -556,18 +556,18 @@ class VideoWindow(BaseWindow):
                         img.rgba.fill(1)
                     ax.imshow(img.rgba, cmap=img.cmap, vmin=0)
                 else:
-                    lib.plotting.empty_imshow(ax)
+                    src.main.python.lib.plotting.empty_imshow(ax)
 
             c1, c2 = vid.grn, vid.red
             if c1.rgba is not None and c2.rgba is not None:
                 self.canvas.ax_grn_red.imshow(
-                    lib.imgdata.light_blend(
+                    src.main.python.lib.imgdata.light_blend(
                         c1.rgba, c2.rgba, cmap1=c1.cmap, cmap2=c2.cmap
                     ),
                     vmin=0,
                 )
             else:
-                lib.plotting.empty_imshow(self.canvas.axes_blend.ax)
+                src.main.python.lib.plotting.empty_imshow(self.canvas.axes_blend.ax)
 
             for ax in self.canvas.axes_all:
                 ax.set_xticks(())
@@ -575,7 +575,7 @@ class VideoWindow(BaseWindow):
 
             # Green spots
             if vid.grn.n_spots > 0:
-                lib.plotting.plot_rois(
+                src.main.python.lib.plotting.plot_rois(
                     vid.grn.spots,
                     self.canvas.ax_grn,
                     color=gvars.color_white,
@@ -584,7 +584,7 @@ class VideoWindow(BaseWindow):
 
             # Red spots
             if vid.red.n_spots > 0:
-                lib.plotting.plot_rois(
+                src.main.python.lib.plotting.plot_rois(
                     vid.red.spots,
                     self.canvas.ax_red,
                     color=gvars.color_white,
@@ -593,7 +593,7 @@ class VideoWindow(BaseWindow):
 
             # Colocalized spots
             if vid.coloc_grn_red.spots is not None:
-                lib.plotting.plot_roi_coloc(
+                src.main.python.lib.plotting.plot_roi_coloc(
                     vid.coloc_grn_red.spots,
                     img_ax=self.canvas.ax_grn_red,
                     color1=gvars.color_green,
@@ -603,7 +603,7 @@ class VideoWindow(BaseWindow):
 
         else:
             for ax in self.canvas.axes_all:
-                lib.plotting.empty_imshow(ax)
+                src.main.python.lib.plotting.empty_imshow(ax)
 
         self.canvas.draw()
         self.refreshInterface()
