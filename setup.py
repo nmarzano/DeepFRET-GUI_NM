@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 setup(
-    name='DeepFRET-GUI_NM',
+    name='DeepFRET_GUI_NM',
     version='1.0.0',
     url='https://github.com/nmarzano/DeepFRET-GUI_NM',
     author='Nicholas Marzano',
