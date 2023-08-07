@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: deepfret-nm
+Version: 1.0.0
+Summary: Package to be used for fitting FRET data with HMM model
+Home-page: https://github.com/nmarzano/deepfret_nm
+Author: Nicholas Marzano
+Author-email: nmarzano@uow.edu.au
+License-File: LICENSE
