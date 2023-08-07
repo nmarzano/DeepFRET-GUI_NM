@@ -135,3 +135,5 @@ pre-commit-hook.sh
 
 .DS_Store
 
+deepfret_nm/build/*
+deepfret_nm/main/icons/*
