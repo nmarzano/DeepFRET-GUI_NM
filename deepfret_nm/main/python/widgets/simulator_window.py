@@ -7,9 +7,9 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-import deepfret_nm.main.python.lib.math
-import deepfret_nm.main.python.lib.utils
-import deepfret_nm.main.python.lib.plotting
+import main.python.lib.math
+import main.python.lib.utils
+import main.python.lib.plotting
 from main.python.global_variables import GlobalVariables as gvars
 from main.python.lib.container import TraceContainer
 from main.python.ui._SimulatorWindow import Ui_SimulatorWindow

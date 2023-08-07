@@ -6,8 +6,8 @@ import scipy.optimize
 import sklearn.cluster
 from matplotlib import pyplot as plt
 
-import deepfret_nm.main.python.lib.math
-import deepfret_nm.main.python.lib.plotting
+import main.python.lib.math
+import main.python.lib.plotting
 from main.python.global_variables import GlobalVariables as gvars
 from main.python.ui._MenuBar import Ui_MenuBar
 from main.python.ui._TransitionDensityWindow import Ui_TransitionDensityWindow

@@ -7,7 +7,7 @@ from tqdm import tqdm
 import matplotlib
 import matplotlib.ticker
 import sklearn.neighbors
-import deepfret_nm.main.python.lib.utils
+import main.python.lib.utils
 from main.python.widgets.misc import ProgressBar
 from typing import Optional, Union, Tuple, List
 import scipy.signal

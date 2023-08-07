@@ -9,8 +9,8 @@ from PyQt5.QtCore import QModelIndex, Qt, pyqtSlot
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtWidgets import QFileDialog
 
-import deepfret_nm.main.python.lib.math
-import deepfret_nm.main.python.lib.plotting
+import main.python.lib.math
+import main.python.lib.plotting
 from main.python.global_variables import GlobalVariables as gvars
 from main.python.lib.container import TraceContainer
 from main.python.ui._MenuBar import Ui_MenuBar
