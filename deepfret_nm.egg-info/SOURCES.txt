@@ -1,0 +1,9 @@
+LICENSE
+README.md
+setup.py
+deepfret_nm/DeepFRET_NM.py
+deepfret_nm/__init__.py
+deepfret_nm.egg-info/PKG-INFO
+deepfret_nm.egg-info/SOURCES.txt
+deepfret_nm.egg-info/dependency_links.txt
+deepfret_nm.egg-info/top_level.txt

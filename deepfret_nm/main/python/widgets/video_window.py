@@ -5,10 +5,10 @@ import numpy as np
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtWidgets import QDoubleSpinBox, QFileDialog
 
-import deepfret_nm.main.python.lib.imgdata
-import deepfret_nm.main.python.lib.math
-import deepfret_nm.main.python.lib.utils
-import deepfret_nm.main.python.lib.plotting
+import main.python.lib.imgdata
+import main.python.lib.math
+import main.python.lib.utils
+import main.python.lib.plotting
 from main.python.global_variables import GlobalVariables as gvars
 from main.python.lib.container import (
     ImageChannel,

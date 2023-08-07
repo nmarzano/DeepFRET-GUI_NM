@@ -16,9 +16,9 @@ from typing import Union, Tuple, Optional
 import numpy as np
 import pandas as pd
 import skimage.io
-import deepfret_nm.main.python.lib.imgdata
-import deepfret_nm.main.python.lib.math
-import deepfret_nm.main.python.lib.utils
+import main.python.lib.imgdata
+import main.python.lib.math
+import main.python.lib.utils
 import astropy.io.fits
 
 

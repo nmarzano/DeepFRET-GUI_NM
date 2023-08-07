@@ -12,9 +12,9 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Patch
 import sklearn.neighbors
-import deepfret_nm.main.python.lib.utils
+import main.python.lib.utils
 from matplotlib.colors import Normalize
-import deepfret_nm.main.python.lib.math
+import main.python.lib.math
 import scipy.stats
 
 
