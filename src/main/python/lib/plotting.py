@@ -5,7 +5,7 @@ multiprocessing.freeze_support()
 from src.main.python.global_variables import GlobalVariables as gvars
 import matplotlib
 
-matplotlib.use("qt5agg")
+# matplotlib.use("qt5agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.ticker import MaxNLocator
