@@ -1,9 +1,9 @@
 import numpy as np
 import pandas as pd
-import main.python.lib.math
-import main.python.lib.plotting
-from main.python.lib.container import TraceContainer
-from main.python.lib.math import contains_nan, correct_DA, get_hmm_model
+import deepfret_nm.main.python.lib.math
+import deepfret_nm.main.python.lib.plotting
+from deepfret_nm.main.python.lib.container import TraceContainer
+from deepfret_nm.main.python.lib.math import contains_nan, correct_DA, get_hmm_model
 
 key_hmmMode = 'E'
 
