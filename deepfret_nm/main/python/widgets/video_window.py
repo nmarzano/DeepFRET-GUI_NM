@@ -5,23 +5,23 @@ import numpy as np
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtWidgets import QDoubleSpinBox, QFileDialog
 
-import main.python.lib.imgdata
-import main.python.lib.math
-import main.python.lib.utils
-import main.python.lib.plotting
-from main.python.global_variables import GlobalVariables as gvars
-from main.python.lib.container import (
+import deepfret_nm.main.python.lib.imgdata
+import deepfret_nm.main.python.lib.math
+import deepfret_nm.main.python.lib.utils
+import deepfret_nm.main.python.lib.plotting
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.lib.container import (
     ImageChannel,
     TraceChannel,
     TraceContainer,
     VideoContainer,
 )
-from main.python.lib.utils import timeit
-from main.python.ui._MainWindow import Ui_MainWindow
-from main.python.ui._MenuBar import Ui_MenuBar
-from main.python.widgets.misc import ProgressBar
-from main.python.widgets.base_window import BaseWindow
-from main.python.widgets.trace_window import TraceWindow
+from deepfret_nm.main.python.lib.utils import timeit
+from deepfret_nm.main.python.ui._MainWindow import Ui_MainWindow
+from deepfret_nm.main.python.ui._MenuBar import Ui_MenuBar
+from deepfret_nm.main.python.widgets.misc import ProgressBar
+from deepfret_nm.main.python.widgets.base_window import BaseWindow
+from deepfret_nm.main.python.widgets.trace_window import TraceWindow
 
 
 class VideoWindow(BaseWindow):

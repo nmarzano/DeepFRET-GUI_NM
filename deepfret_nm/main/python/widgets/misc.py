@@ -1,6 +1,6 @@
 import multiprocessing
 
-from main.python.widgets.inspectors import SheetInspector
+from deepfret_nm.main.python.widgets.inspectors import SheetInspector
 
 multiprocessing.freeze_support()
 

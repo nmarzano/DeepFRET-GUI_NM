@@ -10,13 +10,13 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from main.python.global_variables import GlobalVariables as gvars
-from main.python.lib.container import DataContainer, TraceContainer
-from main.python.mpl_layout import PlotWidget
-from main.python.ui._AboutWindow import Ui_About
-from main.python.ui._MenuBar import Ui_MenuBar
-from main.python.ui._PreferencesWindow import Ui_Preferences
-from main.python.widgets.misc import ExportDialog, ListView
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.lib.container import DataContainer, TraceContainer
+from deepfret_nm.main.python.mpl_layout import PlotWidget
+from deepfret_nm.main.python.ui._AboutWindow import Ui_About
+from deepfret_nm.main.python.ui._MenuBar import Ui_MenuBar
+from deepfret_nm.main.python.ui._PreferencesWindow import Ui_Preferences
+from deepfret_nm.main.python.widgets.misc import ExportDialog, ListView
 
 
 class BaseWindow(QMainWindow):

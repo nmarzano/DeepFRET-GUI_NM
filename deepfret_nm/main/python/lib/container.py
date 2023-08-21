@@ -6,19 +6,19 @@ import warnings
 import PIL.Image
 import PIL.TiffTags
 
-from main.python.lib.utils import timeit
+from deepfret_nm.main.python.lib.utils import timeit
 
 multiprocessing.freeze_support()
 
-from main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
 from matplotlib.colors import LinearSegmentedColormap
 from typing import Union, Tuple, Optional
 import numpy as np
 import pandas as pd
 import skimage.io
-import main.python.lib.imgdata
-import main.python.lib.math
-import main.python.lib.utils
+import deepfret_nm.main.python.lib.imgdata
+import deepfret_nm.main.python.lib.math
+import deepfret_nm.main.python.lib.utils
 import astropy.io.fits
 
 

@@ -9,16 +9,16 @@ from PyQt5.QtCore import QModelIndex, Qt, pyqtSlot
 from PyQt5.QtGui import QStandardItem
 from PyQt5.QtWidgets import QFileDialog
 
-import main.python.lib.math
-import main.python.lib.plotting
-from main.python.global_variables import GlobalVariables as gvars
-from main.python.lib.container import TraceContainer
-from main.python.ui._MenuBar import Ui_MenuBar
-from main.python.ui._TraceWindow import Ui_TraceWindow
-from main.python.widgets.misc import ProgressBar
-from main.python.widgets.base_window import BaseWindow
-from main.python.widgets.histogram_window import HistogramWindow
-from main.python.widgets.transition_density_window import TransitionDensityWindow
+import deepfret_nm.main.python.lib.math
+import deepfret_nm.main.python.lib.plotting
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.lib.container import TraceContainer
+from deepfret_nm.main.python.ui._MenuBar import Ui_MenuBar
+from deepfret_nm.main.python.ui._TraceWindow import Ui_TraceWindow
+from deepfret_nm.main.python.widgets.misc import ProgressBar
+from deepfret_nm.main.python.widgets.base_window import BaseWindow
+from deepfret_nm.main.python.widgets.histogram_window import HistogramWindow
+from deepfret_nm.main.python.widgets.transition_density_window import TransitionDensityWindow
 
 
 traces = [

@@ -1,7 +1,7 @@
 import sys
 from main import AppContext
-from main.python.widgets.inspectors import DensityWindowInspector
-from main.python.widgets.histogram_window import HistogramWindow
+from deepfret_nm.main.python.widgets.inspectors import DensityWindowInspector
+from deepfret_nm.main.python.widgets.histogram_window import HistogramWindow
 import pandas as pd
 import numpy as np
 

@@ -4,10 +4,10 @@ from typing import Dict
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog, QWidget
 
-from main.python.global_variables import GlobalVariables as gvars
-from main.python.ui._CorrectionFactorInspector import Ui_CorrectionFactorInspector
-from main.python.ui._DensityWindowInspector import Ui_DensityWindowInspector
-from main.python.ui._TraceWindowInspector import Ui_TraceWindowInspector
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.ui._CorrectionFactorInspector import Ui_CorrectionFactorInspector
+from deepfret_nm.main.python.ui._DensityWindowInspector import Ui_DensityWindowInspector
+from deepfret_nm.main.python.ui._TraceWindowInspector import Ui_TraceWindowInspector
 
 
 class SheetInspector(QDialog):

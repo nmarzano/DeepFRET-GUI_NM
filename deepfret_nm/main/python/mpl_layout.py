@@ -2,7 +2,7 @@ import multiprocessing
 
 multiprocessing.freeze_support()
 
-from main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import (
     NavigationToolbar2QT as NavigationToolbar,

@@ -7,14 +7,14 @@ import numpy as np
 import pandas as pd
 from matplotlib import pyplot as plt
 
-import main.python.lib.math
-import main.python.lib.utils
-import main.python.lib.plotting
-from main.python.global_variables import GlobalVariables as gvars
-from main.python.lib.container import TraceContainer
-from main.python.ui._SimulatorWindow import Ui_SimulatorWindow
-from main.python.widgets.misc import ExportDialog, ProgressBar
-from main.python.widgets.base_window import BaseWindow
+import deepfret_nm.main.python.lib.math
+import deepfret_nm.main.python.lib.utils
+import deepfret_nm.main.python.lib.plotting
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.lib.container import TraceContainer
+from deepfret_nm.main.python.ui._SimulatorWindow import Ui_SimulatorWindow
+from deepfret_nm.main.python.widgets.misc import ExportDialog, ProgressBar
+from deepfret_nm.main.python.widgets.base_window import BaseWindow
 
 
 class SimulatorWindow(BaseWindow):

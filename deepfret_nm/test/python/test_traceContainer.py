@@ -2,7 +2,7 @@ import os
 from unittest import TestCase
 import numpy as np
 
-from main.python.lib.container import TraceContainer
+from deepfret_nm.main.python.lib.container import TraceContainer
 
 
 class TestTraceContainer(TestCase):

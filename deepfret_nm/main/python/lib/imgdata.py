@@ -2,7 +2,7 @@ import multiprocessing
 
 multiprocessing.freeze_support()
 
-from main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
 from scipy.interpolate import UnivariateSpline
 import skimage.exposure
 import skimage.feature

@@ -1,6 +1,6 @@
 import sys
 from main import AppContext
-from main.python.widgets.base_window import AboutWindow
+from deepfret_nm.main.python.widgets.base_window import AboutWindow
 
 if __name__ == "__main__":
     ctxt = AppContext()

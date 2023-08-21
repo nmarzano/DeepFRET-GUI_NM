@@ -1,6 +1,6 @@
 import sys
 from main import AppContext, gvars
-from main.python.widgets.video_window import VideoWindow
+from deepfret_nm.main.python.widgets.video_window import VideoWindow
 
 
 class SetUp(VideoWindow):

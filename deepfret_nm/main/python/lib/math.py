@@ -7,8 +7,8 @@ from tqdm import tqdm
 import matplotlib
 import matplotlib.ticker
 import sklearn.neighbors
-import main.python.lib.utils
-from main.python.widgets.misc import ProgressBar
+import deepfret_nm.main.python.lib.utils
+from deepfret_nm.main.python.widgets.misc import ProgressBar
 from typing import Optional, Union, Tuple, List
 import scipy.signal
 import scipy.signal
@@ -22,7 +22,7 @@ import pandas as pd
 import numpy as np
 import pomegranate as pg
 from retrying import retry, RetryError
-from main.python.lib.utils import global_function
+from deepfret_nm.main.python.lib.utils import global_function
 
 pd.options.mode.chained_assignment = None
 
@@ -591,7 +591,7 @@ def contour_2d(
 
     if type(cbins) == np.ndarray:
         levels = cbins
-    elif cbins is "auto":
+    elif cbins == "auto":
         levels = locator.tick_values(z.min(), z.max())
     else:
         raise ValueError

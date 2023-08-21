@@ -2,7 +2,7 @@ import multiprocessing
 
 multiprocessing.freeze_support()
 
-from main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
 import matplotlib
 
 # matplotlib.use("qt5agg")
@@ -12,9 +12,9 @@ from matplotlib.ticker import MaxNLocator
 from matplotlib.collections import PatchCollection
 from matplotlib.patches import Patch
 import sklearn.neighbors
-import main.python.lib.utils
+import deepfret_nm.main.python.lib.utils
 from matplotlib.colors import Normalize
-import main.python.lib.math
+import deepfret_nm.main.python.lib.math
 import scipy.stats
 
 

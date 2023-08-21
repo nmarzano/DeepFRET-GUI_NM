@@ -4,13 +4,13 @@ import numpy as np
 import pandas as pd
 from PyQt5.QtWidgets import QFileDialog
 
-import main.python.lib.math
-import main.python.lib.plotting
-import main.python.lib.utils
-from main.python.global_variables import GlobalVariables as gvars
-from main.python.ui._HistogramWindow import Ui_HistogramWindow
-from main.python.ui._MenuBar import Ui_MenuBar
-from main.python.widgets.base_window import BaseWindow
+import deepfret_nm.main.python.lib.math
+import deepfret_nm.main.python.lib.plotting
+import deepfret_nm.main.python.lib.utils
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.ui._HistogramWindow import Ui_HistogramWindow
+from deepfret_nm.main.python.ui._MenuBar import Ui_MenuBar
+from deepfret_nm.main.python.widgets.base_window import BaseWindow
 
 
 class HistogramWindow(BaseWindow):

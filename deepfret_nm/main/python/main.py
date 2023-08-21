@@ -3,17 +3,17 @@ import multiprocessing
 
 from PyQt5.QtCore import qWarning
 
-from main.python.widgets.base_window import AboutWindow, BaseWindow, PreferencesWindow
-from main.python.widgets.histogram_window import HistogramWindow
-from main.python.widgets.inspectors import (
+from deepfret_nm.main.python.widgets.base_window import AboutWindow, BaseWindow, PreferencesWindow
+from deepfret_nm.main.python.widgets.histogram_window import HistogramWindow
+from deepfret_nm.main.python.widgets.inspectors import (
     AdvancedSortInspector,
     CorrectionFactorInspector,
     DensityWindowInspector,
 )
-from main.python.widgets.simulator_window import SimulatorWindow
-from main.python.widgets.trace_window import TraceWindow
-from main.python.widgets.transition_density_window import TransitionDensityWindow
-from main.python.widgets.video_window import VideoWindow
+from deepfret_nm.main.python.widgets.simulator_window import SimulatorWindow
+from deepfret_nm.main.python.widgets.trace_window import TraceWindow
+from deepfret_nm.main.python.widgets.transition_density_window import TransitionDensityWindow
+from deepfret_nm.main.python.widgets.video_window import VideoWindow
 
 multiprocessing.freeze_support()
 
@@ -23,7 +23,7 @@ import matplotlib
 from PyQt5.QtCore import *
 from configobj import ConfigObj
 
-from main.python.global_variables import GlobalVariables as gvars
+from deepfret_nm.main.python.global_variables import GlobalVariables as gvars
 
 matplotlib.use("qt5agg")
 import pandas as pd
